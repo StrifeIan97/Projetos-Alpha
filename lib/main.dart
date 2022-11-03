@@ -11,10 +11,8 @@ void main() {
   runApp(const MyApp());
 }
 
-
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-  
 
   // This widget is the root of your application.
   @override
@@ -42,7 +40,6 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, required this.title}) : super(key: key);
 
-
   final String title;
 
   @override
@@ -58,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     _getData();
-   // _getSeason();
+    // _getSeason();
   }
 
   void _getData() async {
@@ -66,16 +63,14 @@ class _MyHomePageState extends State<MyHomePage> {
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
   }
 
- /* void _getSeason() async{
+  /* void _getSeason() async{
     _seasonmodel = (await ApiService().getSeasons());
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
   }
 */
- 
 
   Icon customIcon = const Icon(Icons.search);
   Widget customSearchBar = const Text('Busca uma série específica?');
-
 
   @override
   Widget build(BuildContext context) {
@@ -99,21 +94,17 @@ class _MyHomePageState extends State<MyHomePage> {
           : ListView.builder(
               itemCount: _userModel!.length,
               itemBuilder: (context, index) {
-              final Image passarimagem = Image.network(_userModel![index].img.medium);
-              final String passarnome = _userModel![index].name;
-              final String horariospassados = _userModel![index].schedule.days.toString();
-              final String horariospassados2 = _userModel![index].schedule.time.toString();
-              final String generospassados = _userModel![index].genres.toString();
-              final String resumospassados = _userModel![index].summary;
-               String getidseriepassado = _userModel![index].id.toString();
-
-
-              
-
-
-
-             
-             
+                final Image passarimagem =
+                    Image.network(_userModel![index].img.medium);
+                final String passarnome = _userModel![index].name;
+                final String horariospassados =
+                    _userModel![index].schedule.days.toString();
+                final String horariospassados2 =
+                    _userModel![index].schedule.time.toString();
+                final String generospassados =
+                    _userModel![index].genres.toString();
+                final String resumospassados = _userModel![index].summary;
+                String getidseriepassado = _userModel![index].id.toString();
 
                 return Card(
                   child: Column(
@@ -125,26 +116,32 @@ class _MyHomePageState extends State<MyHomePage> {
                           Text(_userModel![index].id.toString()),
                           Text(_userModel![index].name),
                           TextButton(
-  style: ButtonStyle(
-    overlayColor: MaterialStateProperty.resolveWith<Color?>(
-      (Set<MaterialState> states) {
-        if (states.contains(MaterialState.focused))
-          return Colors.red;
-        return null; // Defer to the widget's default.
-      }
-    ),
-  ),
-  onPressed: () { 
-     Navigator.of(context).push(
-    MaterialPageRoute(
-      builder: (context) => InfoShow(nomepassado: passarnome, imagempassado: passarimagem, horariosrecebidos:horariospassados,
-      horariosrecebidos2:horariospassados2, generosrecebidos: generospassados, resumorecebido: resumospassados, idserierecebida: getidseriepassado,
-      ),
-    ),
-  );
-  },
-  child: Text('Ver Informações da Série'),
-)
+                            style: ButtonStyle(
+                              overlayColor:
+                                  MaterialStateProperty.resolveWith<Color?>(
+                                      (Set<MaterialState> states) {
+                                if (states.contains(MaterialState.focused))
+                                  return Colors.red;
+                                return null; // Defer to the widget's default.
+                              }),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => InfoShow(
+                                    nomepassado: passarnome,
+                                    imagempassado: passarimagem,
+                                    horariosrecebidos: horariospassados,
+                                    horariosrecebidos2: horariospassados2,
+                                    generosrecebidos: generospassados,
+                                    resumorecebido: resumospassados,
+                                    idserierecebida: getidseriepassado,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Text('Ver Informações da Série'),
+                          )
                         ],
                       ),
                       const SizedBox(

@@ -14,8 +14,11 @@ class ApiService {
       var response = await http.get(url);
       if (response.statusCode == 200) {
         List<UserModel> model = userModelFromJson(response.body);
-        if(query !=null){
-          model = model.where((element) => element.name.toLowerCase().contains(query.toLowerCase())).toList();
+        if (query != null) {
+          model = model
+              .where((element) =>
+                  element.name.toLowerCase().contains(query.toLowerCase()))
+              .toList();
         }
 
         return model;
@@ -25,50 +28,39 @@ class ApiService {
     }
   }
 
-  Future<List<Episodios>?> getEpisodios() async{
-    try{
-       var url2 = Uri.parse(ApiConstants.baseUrl + ApiConstants.episodiosEndPoint);
-       var response2 = await http.get(url2);
-       if(response2.statusCode == 200){
-        List<Episodios> modelepisodios = episodiosFromJson(response2.body);
-        return modelepisodios;
-       }
-    }catch(e){
-      log(e.toString());
-    }
-  }
+  
 
-  Future<List<SeasonModel>?> getSeasons(String idserie) async{
-     String listatemporadas ='/shows/$idserie/seasons';
-     const String urlbase = 'https://api.tvmaze.com';
-    try{
-       var url = Uri.parse(urlbase +listatemporadas);
-       var response = await http.get(url);
-       if(response.statusCode == 200){
-           List<SeasonModel> modelseasons = seasonModelFromJson(response.body);
+  Future<List<SeasonModel>?> getSeasons(String idserie) async {
+    String listatemporadas = '/shows/$idserie/seasons';
+    const String urlbase = 'https://api.tvmaze.com';
+    try {
+      var url = Uri.parse(urlbase + listatemporadas);
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        List<SeasonModel> modelseasons = seasonModelFromJson(response.body);
 
         return modelseasons;
-        
-        
-       
-
-      
-       }
-    }catch(e){
+      }
+    } catch (e) {
       log(e.toString());
     }
   }
 
-  Future<List<SeasonEpisodeModel>?> getSeasonsEpisodes(String idseason) async{
-    String listaeptemp = '/seasons/$idseason/episodes';
-    try{
-       var url4 = Uri.parse(ApiConstants.baseUrl + listaeptemp);
-       var response4 = await http.get(url4);
-       if(response4.statusCode == 200){
-        List<SeasonEpisodeModel> modelepseasons = seasonEpisodeModelFromJson(response4.body);
+  Future<List<Episodios>?> getSeasonsEpisodes(seasonnumber,idshow) async {
+    String listaeptemp = '/shows/$idshow/episodes';
+    try {
+      var url4 = Uri.parse(ApiConstants.baseUrl + listaeptemp);
+      var response4 = await http.get(url4);
+      if (response4.statusCode == 200) {
+        List<Episodios> modelepseasons = episodiosFromJson(response4.body);
+        //List<Episodios> epfiltrotemp = modelepseasons.where((element) => element.season == seasonnumber).toList();
+
+       
+      
         return modelepseasons;
-       }
-    }catch(e){
+        
+      }
+    } catch (e) {
       log(e.toString());
     }
   }

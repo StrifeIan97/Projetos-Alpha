@@ -5,20 +5,13 @@ import 'api_service.dart';
 import 'main.dart';
 import 'infoshow.dart';
 
-
-
 class SearchMovie extends SearchDelegate {
-
   ApiService _userModel = ApiService();
 
-
   @override
-  List<Widget>? buildActions(BuildContext context) {
-    
-  }
+  List<Widget>? buildActions(BuildContext context) {}
 
   //late List<UserModel>? _userModel = [];
-  
 
   @override
   Widget? buildLeading(BuildContext context) {
@@ -44,18 +37,16 @@ class SearchMovie extends SearchDelegate {
           return ListView.builder(
               itemCount: data?.length,
               itemBuilder: (context, index) {
-                final Image passarimagemsearch = Image.network('${data?[index].img.medium}');
-                final String passarnomesearch = '${data?[index].name}' ;
+                final Image passarimagemsearch =
+                    Image.network('${data?[index].img.medium}');
+                final String passarnomesearch = '${data?[index].name}';
                 final String diapassadosearch = '${data?[index].schedule.days}';
-                final String horariopassadosearch = '${data?[index].schedule.time}';
+                final String horariopassadosearch =
+                    '${data?[index].schedule.time}';
                 final String generopassadosearch = '${data?[index].genres}';
                 final String resumopassadosearch = '${data?[index].summary}';
                 //ApiConstants.listatemporadas = '/shows/${data?[index].id}/seasons';
-                 String idseriepassadosearch = '${data?[index].id.toString()}';
-
-               
-
-
+                String idseriepassadosearch = '${data?[index].id.toString()}';
 
                 return ListTile(
                   title: Row(
@@ -92,22 +83,29 @@ class SearchMovie extends SearchDelegate {
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
-                            
                             TextButton(
-  style: ButtonStyle(
-    foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-  ),
-  onPressed: () {  Navigator.of(context).push(
-    MaterialPageRoute(
-      builder: (context) => InfoShow(nomepassado: passarnomesearch, imagempassado: passarimagemsearch, horariosrecebidos:diapassadosearch,
-      horariosrecebidos2:horariopassadosearch, generosrecebidos: generopassadosearch, resumorecebido: resumopassadosearch, idserierecebida: idseriepassadosearch
-      ),
-  ),
-  );
-  },
-  child: Text('Ver Informações da série'),
-  
-) 
+                              style: ButtonStyle(
+                                foregroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.blue),
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => InfoShow(
+                                        nomepassado: passarnomesearch,
+                                        imagempassado: passarimagemsearch,
+                                        horariosrecebidos: diapassadosearch,
+                                        horariosrecebidos2:
+                                            horariopassadosearch,
+                                        generosrecebidos: generopassadosearch,
+                                        resumorecebido: resumopassadosearch,
+                                        idserierecebida: idseriepassadosearch),
+                                  ),
+                                );
+                              },
+                              child: Text('Ver Informações da série'),
+                            )
                           ])
                     ],
                   ),
@@ -125,11 +123,4 @@ class SearchMovie extends SearchDelegate {
       child: Text('Digite o nome da série'),
     );
   }
-
 }
-
-
-
- 
-  
-

@@ -9,6 +9,9 @@ List<Episodios> episodiosFromJson(String str) => List<Episodios>.from(json.decod
 
 String episodiosToJson(List<Episodios> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
+var imageDefault = '{ "medium": "https://cdn-icons-png.flaticon.com/128/3875/3875148.png", "original":  "https://cdn-icons-png.flaticon.com/128/3875/3875148.png" }';
+
+var jsonImageDefault = json.decode(imageDefault);
 class Episodios {
     Episodios({
         required this.id,
@@ -21,7 +24,6 @@ class Episodios {
         required this.airtime,
         required this.airstamp,
         required this.runtime,
-        required this.rating,
         required this.image,
         required this.summary,
         required this.links,
@@ -37,25 +39,24 @@ class Episodios {
     Airtime? airtime;
     DateTime airstamp;
     int runtime;
-    Rating rating;
     Images image;
     String summary;
     Links links;
 
     factory Episodios.fromJson(Map<String, dynamic> json) => Episodios(
-        id: json["id"],
-        url: json["url"],
-        name: json["name"],
-        season: json["season"],
-        number: json["number"],
+        id: json["id"]??'',
+        url: json["url"]??'',
+        name: json["name"]??'',
+        season: json["season"]??'',
+        number: json["number"]??'',
         type: typeValues.map[json["type"]],
         airdate: DateTime.parse(json["airdate"]),
         airtime: airtimeValues.map[json["airtime"]],
         airstamp: DateTime.parse(json["airstamp"]),
         runtime: json["runtime"],
-        rating: Rating.fromMap(json["rating"]),
-        image: Images.fromMap(json["image"]),
-        summary: json["summary"],
+        image: json["image"] != null?Images.fromMap(json["image"]): Images.fromMap(jsonImageDefault),
+
+        summary: json["summary"]??'',
         links: Links.fromMap(json["_links"]),
     );
 
@@ -70,7 +71,6 @@ class Episodios {
         "airtime": airtimeValues.reverse[airtime],
         "airstamp": airstamp.toIso8601String(),
         "runtime": runtime,
-        "rating": rating.toMap(),
         "image": image.toMap(),
         "summary": summary,
         "_links": links.toMap(),
@@ -94,8 +94,8 @@ class Images {
     String original;
 
     factory Images.fromMap(Map<String, dynamic> json) => Images(
-        medium: json["medium"],
-        original: json["original"],
+         medium: json["medium"]??'https://cdn-icons-png.flaticon.com/128/3875/3875148.png',
+        original: json["original"]??''
     );
 
     Map<String, dynamic> toMap() => {
